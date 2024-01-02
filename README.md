@@ -15,23 +15,27 @@ adds some formatting for numbered items:
 input:
 
 ```
-a b I c 1. ddd 2. ttt d XV 1. eee 2. fff
+a b I c 1. ddd 2. ttt d 3.: ccc XV 1. eee 2. fff
 ```
 
 output:
 
 ```
-a b
+a b 
 
-<h4> I </h4>c
+<h4>I</h4> c 
 
-<b> 1. </b>ddd
+<b>1.</b> ddd 
 
-<b> 2. </b>ttt d
+<b>2.</b> ttt d 
 
-<h4> XV </h4>1. eee
+<b>3.:</b> ccc 
 
-<b> 2. </b>fff
+<h4>XV</h4> 
+
+<b>1.</b> eee 
+
+<b>2.</b> fff
 ```
 
 ## Usage
