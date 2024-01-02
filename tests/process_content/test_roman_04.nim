@@ -7,7 +7,7 @@ proc look(text: string, pos: int): bool =
     return res
 
 assert look("I ", 0) == false
-assert look(" II ", 0) == false
+assert look(" II ", 0) == true
 assert look(" VI ", 1) == false
 assert look(" XI a", 0) == true
 assert look(" II a", 1) == false

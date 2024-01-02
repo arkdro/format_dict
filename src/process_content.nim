@@ -11,27 +11,27 @@ proc add_look_ahead_chars(data: var seq[Rune], chars: seq[Rune], idx: int, num_o
         let char = chars[i]
         data.add(char)
 
-proc iterate_chars(chars: seq[Rune]): seq[Rune] =
+proc iterate_chars*(chars: seq[Rune]): seq[Rune] =
     var res: seq[Rune] = @[]
     var idx = 0
     while idx < chars.len:
+        let char = chars[idx]
+        let original_char_length = 1
+        add_original_char(res, char)
         let (matched, num_of_chars) = process_normal_numbers.look_ahead_number_point(chars, idx)
         if matched:
             process_normal_numbers.add_header(res)
-            add_look_ahead_chars(res, chars, idx, num_of_chars)
+            add_look_ahead_chars(res, chars, idx + original_char_length, num_of_chars)
             process_normal_numbers.add_footer(res)
             idx += num_of_chars
         else:
             let (matched, num_of_chars) = process_roman_numbers.look_ahead_number_point(chars, idx)
             if matched:
                 process_roman_numbers.add_header(res)
-                add_look_ahead_chars(res, chars, idx, num_of_chars)
+                add_look_ahead_chars(res, chars, idx + original_char_length, num_of_chars)
                 process_roman_numbers.add_footer(res)
                 idx += num_of_chars
-            else:
-                let char = chars[idx]
-                add_original_char(res, char)
-                idx += 1
+        idx += original_char_length
     return res
 
 proc process_content*(content: string): string =

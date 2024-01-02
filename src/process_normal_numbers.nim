@@ -23,7 +23,7 @@ const footer = "</b>".toRunes
 
 const min_number_of_start_chars = 1
 const min_number_of_digits = 1
-const finish_length = 2
+const finish_length = 1
 
 proc is_digit_at_pos*(chars: seq[Rune], pos: int): bool =
     let char = chars[pos]
@@ -52,7 +52,9 @@ proc count_finish*(chars: seq[Rune], pos: int): Counter =
     if not has_some_chars(chars, pos + 1):
         return Counter(0)
     if chars[pos] == dot:
-        if chars[pos + 1] == space or chars[pos + 1] == colon:
+        if chars[pos + 1] == space:
+            return Counter(1)
+        if chars[pos + 1] == colon:
             return Counter(2)
     return Counter(0)
 
@@ -71,12 +73,8 @@ proc look_ahead_number_point*(chars: seq[Rune], pos: int): (bool, int) =
         let num_of_chars_finish = count_finish(chars, pos_after_digits)
         if int(num_of_chars_finish) < finish_length:
             return (false, 0)
-        let pos_after_finish = pos_after_digits + int(num_of_chars_finish)
-        if has_some_chars(chars, pos_after_finish):
-            let n = int(num_of_chars_start) + int(num_of_digits) + int(num_of_chars_finish)
-            return (true, n)
-        else:
-            return (false, 0)
+        let n = int(num_of_digits) + int(num_of_chars_finish)
+        return (true, n)
     else:
         return (false, 0)
 

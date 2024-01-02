@@ -50,7 +50,7 @@ proc count_finish*(chars: seq[Rune], pos: int): Counter =
     return Counter(0)
 
 proc look_ahead_number_point*(chars: seq[Rune], pos: int): (bool, int) =
-    if pos >= chars.len:
+    if not has_some_chars(chars, pos):
         return (false, 0)
     let num_of_start_chars = count_start(chars, pos)
     if int(num_of_start_chars) < min_number_of_start_chars:
@@ -64,12 +64,8 @@ proc look_ahead_number_point*(chars: seq[Rune], pos: int): (bool, int) =
         let num_of_finish_chars = count_finish(chars, pos_after_digits)
         if int(num_of_finish_chars) < finish_length:
             return (false, 0)
-        let pos_after_finish = pos_after_digits + int(num_of_finish_chars)
-        if has_some_chars(chars, pos_after_finish):
-            let n = int(num_of_start_chars) + int(num_of_digits) + int(num_of_finish_chars)
-            return (true, n)
-        else:
-            return (false, 0)
+        let n = int(num_of_digits)
+        return (true, n)
     else:
         return (false, 0)
 
