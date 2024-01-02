@@ -1,0 +1,12 @@
+.idea/
+build/
+*.sw?
+
+nimcache/
+testresults/
+testresults.html
+outputExpected.txt
+outputGotten.txt
+tests/megatest
+tests/megatest.nim
+
